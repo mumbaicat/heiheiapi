@@ -1,42 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>登陆 - 嘿嘿API</title>
-    <link rel="stylesheet" href="__PUBLIC__/static/layui-v2.1.2/css/layui.css">
-    <script src="__PUBLIC__/static/layui-v2.1.2/layui.js"></script>
+<title>登陆 - 嘿嘿API</title>
+<link href="__PUBLIC__/static/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="__PUBLIC__/static/layui-v2.1.2/css/layui.css">
+<script src="__PUBLIC__/static/layui-v2.1.2/layui.js"></script>
+</script>
 </head>
 <body>
-
-
-<div class="layui-col-sm3" style="margin:20px 20px;o;border-radius:15px; border:1px solid #666;padding: 20px;">
-    <blockquote class="layui-elem-quote">
-        用户登陆
-    </blockquote>
-    <form class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
-                <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        
-        <div class="layui-form-item">
-            <label class="layui-input-block">
-                <input type="submit" class="layui-btn layui-btn-big" value="登陆">
-                <a href="/index/index/register" class="layui-btn layui-btn-big layui-bg-blue">注册</a>
-            </label>
-        </div>
-    </form>
-</div>
-
+		<div class="app-location" style="margin-top:40px;">
+			<h2>登陆到嘿嘿API</h2>
+			<div class="line"><span></span></div>
+			<div class="location"><img src="__PUBLIC__/static/images/location.png" class="img-responsive" alt="" /></div>
+			<form>
+				<input type="text" name="username" class="text" placeholder="请输入你的用户名">
+				<input type="password" name="password" placeholder="请输入你的密码">
+				<div class="submit"><input type="submit" value="登陆" ></div>
+				<div class="clear"></div>
+				<div class="new">
+					<h4><a href="/index/index/register">注册</a></h4>
+					<div class="clear"></div>
+				</div>
+			</form>
+		</div>
+</body>
 <script type="text/javascript">
 layui.use(['layer','jquery'],function(){
     var $ = layui.$;
@@ -58,5 +47,4 @@ layui.use(['layer','jquery'],function(){
     });
 });
 </script>
-</body>
 </html>
