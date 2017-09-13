@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>首页 - 嘿嘿API</title>
+    <link rel="stylesheet" href="__PUBLIC__/static/layui-v2.1.2/css/layui.css">
+    <script src="__PUBLIC__/static/layui-v2.1.2/layui.js"></script>
+</head>
+<body style="background: #2F4056;">
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item"><a href="">最新活动</a></li>
+        <li class="layui-nav-item layui-this"><a href="">产品</a></li>
+        <li class="layui-nav-item"><a href="">大数据</a></li>
+        <li class="layui-nav-item">
+        <a href="javascript:;">解决方案</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+        <dd><a href="">移动模块</a></dd>
+        <dd><a href="">后台模版</a></dd>
+        <dd><a href="">电商平台</a></dd>
+        </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">社区</a></li>
+    </ul>
+
+    我不想写了,你懂得.
+</body>
+
+<script type="text/javascript">
+layui.use(['element'],function(){
+    var element = layui.element;
+});
+</script>
+
+</html>

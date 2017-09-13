@@ -1,0 +1,51 @@
+<blockquote class="layui-elem-quote">
+    你的应用列表
+</blockquote>
+<table class="layui-table">
+    <thead>
+        <tr>
+            <th>应用ID</th>
+            <th>应用名称</th>
+            <th>创建日期</th>
+            <th>修改日期</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {volist name="data" id="vo"}
+            <tr>
+                <td>{$vo.aid}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.create_time}</td>
+                <td>{$vo.update_time}</td>
+                <td>
+                <a class="layui-btn layui-btn-small" href="/index/index/app_update/aid/{$vo.aid}">修改</a>
+                <button class="layui-btn layui-btn-small layui-bg-red" onclick="deleteOne({$vo.aid})">删除</button>
+                </td>
+            </tr>
+        {/volist}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+function deleteOne(aid){
+    layui.use(['jquery','layer'],function(){
+        var $ = layui.$;
+        var layer = layui.layer;
+        layer.confirm('是否删除本条?', {icon: 3, title:'提示'}, function(index){
+            if(index){
+                $.post('/index/app/app_delete',{'aid':aid},function(x){
+                    var data = JSON.parse(x);
+                    if(data.code!=200){
+                        layer.alert(data.msg, {icon: 2});
+                    }else{
+                        layer.alert(data.msg, {icon: 1},function(){
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        });
+    });
+}
+</script>

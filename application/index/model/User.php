@@ -1,5 +1,4 @@
 <?php
-
 namespace app\index\model;
 
 use think\Model;
@@ -7,16 +6,16 @@ use think\Model;
 class User extends Model {
 
 	protected $autoWriteTimestamp = true;
-	protected $updatetime = false;
-	protected $inert = ['status' => 1];
+	protected $updateTime = false;
+	protected $insert = ['status' => 1];
 
-	protected $errorMsg;
+	protected $errorMsg = '';
 
-	protected encryptPassword($password){
-		return md5(hash($password));
+	protected function encryptUserPassword($password) {
+		return md5(sha1($password));
 	}
 
-	public function getError(){
+	public function getError() {
 		return $this->errorMsg();
 	}
 
@@ -30,12 +29,12 @@ class User extends Model {
 	public function userInsert($name, $password, $email) {
 		$data = [
 			'name' => $name,
-			'password'=> '',
-			'email' => $email
+			'password' => '',
+			'email' => $email,
 		];
-		$data['password'] = $this->encryptPassword($password);
+		$data['password'] = $this->encryptUserPassword($password);
 
-		$uid = $this->save($daat);
+		$uid = $this->save($data);
 		return $this->uid;
 	}
 
@@ -44,11 +43,11 @@ class User extends Model {
 	 * @param  int $uid 用户的UID
 	 * @return bool
 	 */
-	public function userCheckHave($uid){
-		$data = $this->where(['uid'=>$uid])->find();
-		if($data){
+	public function userCheckHave($uid) {
+		$data = $this->where(['uid' => $uid])->find();
+		if ($data) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -59,14 +58,14 @@ class User extends Model {
 	 * @param  string $email 电子邮箱
 	 * @return bool          可用返回true,重复返回false
 	 */
-	public function userCheckRepeat($name,$email){
-		$data = $this->where(['name'=>$name])->find();
-		if($data){
+	public function userCheckRepeat($name, $email) {
+		$data = $this->where(['name' => $name])->find();
+		if ($data) {
 			$this->errorMsg = '用户名重复';
 			return false;
 		}
-		$data = $this->where(['email'=>$email])->find();
-		if($data){
+		$data = $this->where(['email' => $email])->find();
+		if ($data) {
 			$this->errorMsg = '邮箱重复';
 			return false;
 		}
@@ -75,17 +74,34 @@ class User extends Model {
 
 	/**
 	 * 检测用户密码是否正确
-	 * @param  int $uid      用户UID
+	 * @param  string $userName 用户名
 	 * @param  string $password 用户密码明文
 	 * @return bool
 	 */
-	public function userCheckPassword($uid,$password){
-		$user = $this->where(['uid'=>$uid])->find();
-		$encryptPassword = $this->encryptPassword($password)
-		if($user['password']!=$encryptPassword){
+	public function userCheckPassword($userName, $password) {
+		$user = $this->where(['name' => $userName])->find();
+		$encryptPassword = $this->encryptUserPassword($password);
+		if ($user['password'] != $encryptPassword) {
 			return false;
-		}else{
+		} else {
 			return true;
+		}
+	}
+
+	/**
+	 * 获取用户UID和加密密码
+	 * @param  string $userName 用户名称
+	 * @param  string $password 用户明文密码
+	 * @return mixed
+	 */
+	public function userGetUidAndPassword($userName, $password) {
+		$user = $this->where(['name' => $userName])->find();
+		$encryptPassword = $this->encryptUserPassword($password);
+		if ($user['password'] != $encryptPassword) {
+			return false;
+		} else {
+			$info = ['uid' => $user['uid'], 'password' => $user['password']];
+			return $info;
 		}
 	}
 }

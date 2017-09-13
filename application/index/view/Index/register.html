@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>注册 - 嘿嘿API</title>
+    <link rel="stylesheet" href="__PUBLIC__/static/layui-v2.1.2/css/layui.css">
+    <script src="__PUBLIC__/static/layui-v2.1.2/layui.js"></script>
+</head>
+<body>
+<div class="layui-col-sm3" style="margin:20px 20px;o;border-radius:15px; border:1px solid #666;padding: 20px;">
+    <blockquote class="layui-elem-quote">
+        用户注册
+    </blockquote>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">再次输入密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="againpassword" required  lay-verify="required" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电子邮箱</label>
+            <div class="layui-input-block">
+                <input type="email" name="email" required  lay-verify="required" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-input-block">
+                <input type="submit" class="layui-btn layui-btn-big" value="注册">
+                <a href="/index/index/login" class="layui-btn layui-btn-big layui-bg-blue">登陆</a>
+            </label>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+layui.use(['layer','jquery'],function(){
+    var $ = layui.$;
+    var layer = layui.layer;
+
+    $('form').submit(function(){
+        $.post('/index/user/user_insert',$(this).serialize(),function(x){
+            var data = JSON.parse(x);
+            if(data.code !=200){
+                layer.alert(data.msg, {icon: 2});
+            }else{
+                layer.alert(data.msg, {icon: 1},function(){
+                    location.href="/index/index/login";
+                });
+            }
+        });
+        return false;
+    });
+});
+</script>
+
+</body>
+</html>

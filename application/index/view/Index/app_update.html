@@ -1,0 +1,53 @@
+<blockquote class="layui-elem-quote">
+    听说你要修改应用
+</blockquote>
+
+<blockquote class="layui-elem-quote">
+    调用有两种方法: 
+    <hr>
+    GET => <?php echo url('index/index/app_one',['aid'=>$data['aid'],'appkey'=>$data['appkey']],false,true);?> <br>
+    <hr>
+    POST => <?php echo url('index/index/app_one','',false,true);?> <br>
+    POST数据 => aid=<code class="layui-bg-red">{$data.aid}</code>&appkey=<code class="layui-bg-red">{$data.appkey}</code>
+</blockquote>
+
+
+
+<form class="layui-form">
+    <input type="hidden" name="aid" value="{$data.aid}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" placeholder="请输入项目名称" autocomplete="off" class="layui-input" value="{$data.name}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">应用数据</label>
+        <div class="layui-input-block">
+            <textarea rows="15" name="data" placeholder="请输入数据(最好Json)" class="layui-textarea">{$data.data}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="*">立即更新</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+layui.use(['jquery','layer'],function(){
+    var $ = layui.$;
+    var layer = layui.layer;
+    $('form').submit(function(){
+        $.post('/index/app/app_update',$(this).serialize(),function(x){
+            var data = JSON.parse(x);
+            if(data.code!=200){
+                layer.alert(data.msg, {icon: 2});
+            }else{
+                layer.alert(data.msg, {icon: 1});
+            }
+        });
+        return false;
+    });
+});
+</script>

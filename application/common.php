@@ -66,10 +66,17 @@ function userCheckLogin() {
  * @return bool
  */
 function userCheckReally($data) {
-	$res = db('user')->where(['uid' => $uid])->find();
+	$res = db('user')->where(['uid' => $data['uid']])->find();
 	if ($res['password'] != $data['password']) {
 		cookie('userInfo', null);
 		return false;
 	}
 	return true;
+}
+
+function userUID(){
+	$originData = cookie('userInfo');
+	$data = base64_decode($originData);
+	$data = json_decode($data, true);
+	return $data['uid'];
 }
